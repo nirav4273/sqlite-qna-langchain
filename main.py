@@ -24,8 +24,36 @@ agent = create_agent(
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.subheader("QnA Todo list")
 st.caption("Langchain todo with SQLite")
+
+with st.expander("What can I ask?"):
+    st.markdown("""
+The `todos` table has these columns:
+
+| Column | Type | Notes |
+|---|---|---|
+| id | INTEGER | auto-incrementing primary key |
+| title | TEXT | task description |
+| date | DATE | due/associated date |
+| status | TEXT | e.g. pending, done |
+
+Example questions:
+- What todos are pending?
+- Show me all todos due this week.
+- How many tasks are marked as done?
+- Add a todo "Buy groceries" for tomorrow.
+- Mark todo 3 as done.
+- List all todos sorted by date.
+""")
 
 for messages in st.session_state.messages:
     st.chat_message(messages['role']).markdown(messages['content'])
