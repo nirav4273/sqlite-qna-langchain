@@ -1,6 +1,8 @@
-def main():
-    print("Hello from sqlite-qna-langchain!")
+from dotenv import load_dotenv
+from llm import init_llm
 
+load_dotenv()
 
-if __name__ == "__main__":
-    main()
+llm = init_llm()
+response = llm.invoke("What is today date and day?")
+print(response.content)
