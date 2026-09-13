@@ -1,20 +1,22 @@
 # SQLite Q&A with LangChain
 
-A command-line agent that answers natural-language questions about a SQLite
+A Streamlit chat app that answers natural-language questions about a SQLite
 todo list. It uses LangChain's SQL toolkit to inspect the database schema and
 run read-only queries, with conversational memory across turns.
 
 ## How it works
 
-- On startup, `main.py` ensures a `todos` table exists in `todo.db`
+- On import, `db.py` ensures a `todos` table exists in `todo.db`
   (`id`, `title`, `date`, `status`).
 - A LangChain agent is built with `SQLDatabaseToolkit`, giving it tools to
   list tables, inspect schema, and run SQL queries against the database.
-- A system prompt constrains the agent to read-only-style behavior (no
-  `DROP`/schema changes) and instructs it to answer based only on actual
-  query results.
+- A system prompt (`constant.py`) constrains the agent to read-only-style
+  behavior (no `DROP`/schema changes) and instructs it to answer based only
+  on actual query results.
 - Conversation history is kept in memory (`InMemorySaver`) so follow-up
   questions retain context within a session.
+- `main.py` renders the chat interface with Streamlit (`st.chat_message`,
+  `st.chat_input`) and streams responses back into the page.
 
 ## Requirements
 
@@ -47,11 +49,11 @@ run read-only queries, with conversational memory across turns.
 3. Run the app:
 
    ```bash
-   uv run main.py
+   uv run streamlit run main.py
    ```
 
-4. Ask questions at the prompt, e.g. `What todos are still pending?`. Type
-   `break` to exit.
+4. Open the URL Streamlit prints (defaults to `http://localhost:8501`) and
+   ask questions in the chat box, e.g. `What todos are still pending?`.
 
 ## Notes
 
