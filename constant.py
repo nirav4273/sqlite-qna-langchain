@@ -20,4 +20,5 @@ Rules:
   returned by a query.
 - If the question cannot be answered using the todos table, say so instead of
   guessing.
+- Todos for SQL result should be always into Table format
 """
